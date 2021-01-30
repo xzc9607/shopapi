@@ -83,10 +83,55 @@ sendCode=(req,res)=>{
     console.log(phone)
     console.log(code)
 }
+getOrderListLength=(req,res)=>{
+    let {uid} = req.query;
+    var sql = 'SELECT COUNT(*) AS res FROM orders WHERE uid=?';
+    var sqlArr = [uid];
+    var callBack = (err, data) => {
+        if (err) {
+            console.log('连接出错')
+        } else {
+            console.log(sqlArr);
+            res.send(data)
+        }
+    }
+    dbConfig.sqlConnect(sql, sqlArr, callBack);
+}
+getFocusListLength=(req,res)=>{
+    let {uid} = req.query;
+    var sql = 'select count(*) as res from focus where uid=?';
+    var sqlArr = [uid];
+    var callBack = (err, data) => {
+        if (err) {
+            console.log('连接出错')
+        } else {
+            console.log(sqlArr);
+            res.send(data)
+        }
+    }
+    dbConfig.sqlConnect(sql, sqlArr, callBack);
+}
+getFeedbackListLength=(req,res)=>{
+    let {uid} = req.query;
+    var sql = 'select count(*) as res from feedback where uid=?';
+    var sqlArr = [uid];
+    var callBack = (err, data) => {
+        if (err) {
+            console.log('连接出错')
+        } else {
+            console.log(sqlArr);
+            res.send(data)
+        }
+    }
+    dbConfig.sqlConnect(sql, sqlArr, callBack);
+}
 module.exports={
     getUser,
     getUserByname,
     Login,
     sendCode,
-    Register
+    Register,
+    getOrderListLength,
+    getFocusListLength,
+    getFeedbackListLength,
 }
