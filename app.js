@@ -8,6 +8,9 @@ const bodyParser = require('body-parser');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var productRouter = require('./routes/product');
+var ordersRouter = require('./routes/orders');
+var focusRouter = require('./routes/focus');
+var feedbackRouter = require('./routes/feedback');
 
 var app = express();
 
@@ -25,5 +28,8 @@ app.use(bodyParser.urlencoded({extended:true}));//允许POST请求
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/product', productRouter);
+app.use('/orders', ordersRouter);
+app.use('/focus', focusRouter);
+app.use('/feedback', feedbackRouter);
 
 server.listen('3000');

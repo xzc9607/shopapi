@@ -41,9 +41,24 @@ searchProduct = (req, res)=>{
     }
     dbConfig.sqlConnect(sql, sqlArr, callBack);
 }
+findProductByPid= (req, res)=>{
+    let {pid} = req.query;
+    var sql = 'SELECT * FROM product WHERE pid=?';
+    var sqlArr = [pid];
+    var callBack = (err, data) => {
+        if (err) {
+            console.log('连接出错')
+        } else {
+            console.log(sqlArr);
+            res.send(data);
+        }
+    }
+    dbConfig.sqlConnect(sql, sqlArr, callBack);
+}
 
 module.exports={
     getNewProductlist,
     getProductlist,
-    searchProduct
+    searchProduct,
+    findProductByPid
 }
