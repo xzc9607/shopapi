@@ -22,6 +22,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 //静态资源
 app.use(express.static(path.join(__dirname, 'public')));
+//app.use('/static', express.static('public'))
 
 app.use(bodyParser.json({limit: '1mb'}));//body-parser 解析json格式数据
 app.use(bodyParser.urlencoded({extended:true}));//允许POST请求
