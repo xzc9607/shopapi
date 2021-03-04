@@ -18,17 +18,32 @@ getFocusListByUid=(req,res)=>{
 AddFocus=(req,res)=>{
     let uid = req.body.uid;
     let pid = req.body.pid;
+    var firstsql= 'SELECT COUNT(*) AS res FROM focus WHERE uid=? AND pid=?';
     var sql = 'INSERT INTO focus (uid,pid) VALUE (?,?)';
     var sqlArr = [uid,pid];
     var callBack = (err, data) => {
         if (err) {
             console.log('连接出错')
         } else {
-            console.log(sqlArr);
+            if(data[0].res > 0){
+                res.send({code:0});
+            }else{
+                dbConfig.sqlConnect(sql, sqlArr, callBack2);
+                //res.send(data);
+            }
+            //console.log(data[0].res);
+            
+        }
+    }
+    var callBack2 = (err, data) => {
+        if (err) {
+            console.log('连接出错')
+        } else {
+            //console.log(data[0].res);
             res.send(data);
         }
     }
-    dbConfig.sqlConnect(sql, sqlArr, callBack);
+    dbConfig.sqlConnect(firstsql, sqlArr, callBack);
 }
 module.exports={
     getFocusListByUid,
