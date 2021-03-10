@@ -34,6 +34,23 @@ getUserByname=(req,res)=>{
     }
     dbConfig.sqlConnect(sql, sqlArr, callBack);
 }
+
+getUserById=(req,res)=>{
+    let {uid} = req.query;
+    var sql = 'select * from user where uid=?';
+    var sqlArr = [uid];
+    var callBack = (err, data) => {
+        if (err) {
+            console.log('连接出错')
+        } else {
+            console.log(sqlArr);
+            res.send({
+                'list': data
+            })
+        }
+    }
+    dbConfig.sqlConnect(sql, sqlArr, callBack);
+}
 //登录
 Login=(req,res)=>{
     let username = req.body.username;
@@ -134,4 +151,5 @@ module.exports={
     getOrderListLength,
     getFocusListLength,
     getFeedbackListLength,
+    getUserById,
 }

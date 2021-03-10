@@ -14,6 +14,25 @@ getOrderListByUid=(req,res)=>{
     }
     dbConfig.sqlConnect(sql, sqlArr, callBack);
 }
+addorder=(req,res)=>{
+    let uid = req.body.uid;
+    let pid = req.body.pid;
+    let quantity = req.body.quantity;
+    let address = req.body.address;
+    let phone = req.body.phone;
+    let name = req.body.name;
+    var sql = 'INSERT INTO orders (uid,pid,address,phone,name) VALUE (?,?,?,?,?)';
+    var sqlArr = [uid,pid,address,phone,name];
+    var callBack = (err, data) => {
+        if (err) {
+            console.log('连接出错')
+        } else {
+            res.send(data);
+        }
+    }
+    dbConfig.sqlConnect(sql, sqlArr, callBack);
+}
 module.exports={
     getOrderListByUid,
+    addorder,
 }
