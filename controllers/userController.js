@@ -1,6 +1,80 @@
 var dbConfig = require('../util/dbconfig');
+let moment = require('moment');
 function rand(min,max){
     return Math.floor(Math.random()*(max-min))+min
+}
+//测试
+test = (req, res) => {
+    res.send(moment().format('YYYY-M-D'));
+}
+//获取相册列表
+getImgByUid = (req, res) => {
+    let {uid} = req.query;
+    var ob=[];
+    var cell={
+        time:'',
+        data:[]
+    };
+    var sql = 'select * from img where uid=? order by imgid DESC';
+    var sqlArr = [uid];
+    var callBack = (err, data) => {
+        if (err) {
+            console.log('连接出错')
+        } else {
+            res.send(data);
+        }
+    }
+    dbConfig.sqlConnect(sql, sqlArr, callBack);
+}
+//获取云端照片数量
+getImgCountByUid = (req, res) => {
+    let {uid} = req.query;
+    var sql = 'SELECT COUNT(*) AS count FROM img WHERE uid=?';
+    var sqlArr = [uid];
+    var callBack = (err, data) => {
+        if (err) {
+            console.log('连接出错')
+        } else {
+            res.send(data[0]);
+        }
+    }
+    dbConfig.sqlConnect(sql, sqlArr, callBack);
+}
+//获取相册url列表
+getImgListByUid = (req, res) => {
+    let {uid} = req.query;
+    var ob=[];
+    var cell={
+        time:'',
+        data:[]
+    };
+    var sql = 'select url from img where uid=? order by imgid DESC';
+    var sqlArr = [uid];
+    var callBack = (err, data) => {
+        if (err) {
+            console.log('连接出错')
+        } else {
+            res.send(data);
+        }
+    }
+    dbConfig.sqlConnect(sql, sqlArr, callBack);
+}
+//删除云端照片
+delImg=(req,res)=>{
+    let {imgid} = req.query;
+    var sql = 'DELETE FROM img WHERE imgid=?';
+    var sqlArr = [imgid];
+    var callBack = (err, data) => {
+        if (err) {
+            console.log('连接出错')
+        } else {
+            console.log(sqlArr);
+            res.send({
+                'list': data
+            })
+        }
+    }
+    dbConfig.sqlConnect(sql, sqlArr, callBack);
 }
 //获取用户列表
 getUser = (req, res) => {
@@ -152,4 +226,9 @@ module.exports={
     getFocusListLength,
     getFeedbackListLength,
     getUserById,
+    getImgByUid,
+    delImg,
+    getImgListByUid,
+    getImgCountByUid,
+    test,
 }

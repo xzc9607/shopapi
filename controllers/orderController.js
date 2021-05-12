@@ -17,7 +17,6 @@ getOrderListByUid=(req,res)=>{
 addorder=(req,res)=>{
     let uid = req.body.uid;
     let pid = req.body.pid;
-    let quantity = req.body.quantity;
     let address = req.body.address;
     let phone = req.body.phone;
     let name = req.body.name;
