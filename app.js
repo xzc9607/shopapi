@@ -17,6 +17,8 @@ var app = express();
 var http = require('http');
 var server = http.createServer(app);
 
+var temp=0;
+global.templabel=temp;
 
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
